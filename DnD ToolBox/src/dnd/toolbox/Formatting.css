@@ -1,0 +1,17 @@
+HBox, VBox {
+    -fx-spacing: 5;
+    -fx-padding: 5;
+}
+
+#test VBox {
+    -fx-spacing: 5;
+    -fx-padding: 5;
+}
+
+Button{
+    -fx-max-width: 150;
+}
+
+#randomName Label{
+    -fx-stroke-width: 6;
+}
