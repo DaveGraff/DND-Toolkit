@@ -64,10 +64,11 @@ public class FXMain extends Application implements Serializable{
         ToolBar toolbar = new ToolBar();
         changeableSpace = new VBox();
         changeableSpace.setPrefHeight(400);changeableSpace.setPrefWidth(500);
-        changeableSpace.setSpacing(5);
+        
         VBox whole = new VBox();
         whole.getChildren().addAll(toolbar, changeableSpace);
         Scene scene = new Scene(whole);
+        scene.getStylesheets().add(this.getClass().getResource("Formatting.css").toExternalForm());
         
         Button partyMaker = new Button();
         partyMaker.setText("Party Maker");
@@ -284,7 +285,7 @@ public class FXMain extends Application implements Serializable{
     public void battleSimulator(){
         changeableSpace.getChildren().clear();
         
-        HBox pickTeams = new HBox(); pickTeams.setSpacing(5);
+        HBox pickTeams = new HBox();
         ComboBox side1B = new ComboBox(); side1B.setMaxWidth(100);
         ComboBox side2B = new ComboBox(); side2B.setMaxWidth(100);
         Label textSide1 = new Label();
@@ -481,9 +482,9 @@ public class FXMain extends Application implements Serializable{
     public void buildATeam(){
         Label label = new Label(); label.setText("Team Name:");
         TextField name = new TextField();
-        HBox hbox = new HBox(label, name); hbox.setSpacing(5);
+        HBox hbox = new HBox(label, name); 
         Button saveTeam = new Button(); saveTeam.setText("Save");
-        VBox vbox = new VBox(hbox, saveTeam); vbox.setSpacing(5);
+        VBox vbox = new VBox(hbox, saveTeam);
         Scene scene = new Scene(vbox);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -585,10 +586,11 @@ public class FXMain extends Application implements Serializable{
     }
     
     public void displayTeams(){
-        innerSpace.getChildren().add(new Label("Teams"));
+        Label teams = new Label("Teams");
+        teams.setId("labels");
+        innerSpace.getChildren().add(teams);
         parties.forEach((team) ->{
-            Button label = new Button(); label.setDisable(true);
-            label.setText(team.getName());
+            Label label = new Label(team.getName());
             Button edit = new Button(); edit.setText("Edit");
             Button remove = new Button(); remove.setText("Remove");
             remove.setOnAction(e -> {
@@ -597,7 +599,6 @@ public class FXMain extends Application implements Serializable{
                 saveData();
             });
             HBox teamOptions = new HBox(label, edit, remove);
-            teamOptions.setSpacing(5);
             innerSpace.getChildren().add(teamOptions);
             edit.setOnAction(e -> {
                 teamEditor(team);
@@ -608,13 +609,11 @@ public class FXMain extends Application implements Serializable{
     
     public void displayCharacters(){
         Label characters = new Label("Characters");
-        characters.setId("randomName");
+        characters.setId("labels");
         innerSpace.getChildren().add(characters);
         population.forEach((character) -> {
             HBox characterOptions = new HBox();
-            Button label = new Button();
-            label.setDisable(true);
-            label.setText(character.getName() +" lvl "+character.getLevel() +" " + character.getJob());
+            Label label = new Label(character.getName() +" lvl "+character.getLevel() +" " + character.getJob());
             Button edit = new Button("Edit");
             edit.setMinWidth(50);
             edit.setOnAction((ActionEvent e) -> {
